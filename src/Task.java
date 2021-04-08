@@ -19,15 +19,18 @@ public class Task {
         this.vencimiento = null;
     }*/
 
+    public Task() {
+        this.numero = 0;
+        this.descripcion = null;
+        this.finalizada = false;
+        this.vencimiento = null;
+    }
+
     public Task(int numero) {
         this.numero = numero;
         this.descripcion = "";
         this.finalizada = false;
         this.vencimiento = "";
-    }
-
-    public boolean EstaFinalizada() {
-        return finalizada;
     }
 
     public int getNumero() {

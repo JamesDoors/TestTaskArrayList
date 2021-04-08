@@ -12,7 +12,8 @@ public class Mensajes {
         ImpGuion(22);
         System.out.println("1. Agregar una tarea");
         System.out.println("2. Ver Lista de tareas");
-        System.out.println("3. Mostrar una tarea");
+        System.out.println("3. Finalizar una tarea");
+        System.out.println("4. Eliminar una tarea");
         System.out.println();
         System.out.println("0. SALIR");
         ImpGuion(22);
@@ -51,18 +52,11 @@ public class Mensajes {
         System.out.println();
     }
 
-    static void ErrorCondicion(int opcion) {
+    static void ErrorCondicion() {
         System.out.println();
         System.out.println("No se puede realizar esta operación.");
         System.out.println();
-        switch (opcion) {
-            case 1:
-                System.out.println("No se pueden agregar más tareas.");
-            break;
-            case 2: case 3:
-                System.out.println("No hay tareas pendientes.");
-            break;
-        }
+        System.out.println("No hay tareas pendientes.");
         System.out.println();
     }
 

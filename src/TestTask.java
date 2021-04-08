@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class TestTask {
     public static void main(String[] args) {
@@ -7,188 +8,107 @@ public class TestTask {
 
         int opc = -1;
         int opc2 = -1;
-        int numTarea = 0;
-        String nombre;
-        Boolean terminada = false;
-        String fechavenc;
+        int contador = 1;
 
-        Task Tarea1 = new Task(1);
-        Task Tarea2 = new Task(2);
-        Task Tarea3 = new Task(3);
+        //Creo un ArrayList de la clase Task
+        ArrayList<Task> Tareas = new ArrayList<Task>();
         
         do {
             Mensajes.MenuGeneral();
             opc = leer.nextInt();
             switch(opc) {
                 case 1:
-                    leer.nextLine();    
-                    if (Tarea1.getDescripcion()=="") {
-                        System.out.print("Descripción de la tarea: ");
-                        nombre = leer.nextLine();
-                        System.out.println("¿La tarea tiene vencimiento?");
-                        System.out.print("(1- SI / 2- NO): ");
-                        opc2 = leer.nextInt();
-                        if (opc2==1) {
-                            System.out.print("Ingrese la fecha con formato 'dd/mm/aaaa': ");
-                            fechavenc = leer.next();
-                            Tarea1.setVencimiento(fechavenc);
-                        }
-                        Tarea1.setDescripcion(nombre);
-                        Mensajes.OperacionExito();
+                    //Creo un objeto Tarea
+                    Task Tarea = new Task();
+                    leer.nextLine();
+                    System.out.print("Descripción de la tarea: ");
+                    String nombre = leer.nextLine();
+                    System.out.println("¿La tarea tiene vencimiento?");
+                    System.out.print("(1- SI / 2- NO): ");
+                    opc2 = leer.nextInt();
+                    if (opc2==1) {
+                        System.out.print("Ingrese la fecha con formato 'dd/mm/aaaa': ");
+                        String fechavenc = leer.next();
+                        Tarea.setNumero(contador);
+                        Tarea.setDescripcion(nombre);
+                        Tarea.setVencimiento(fechavenc);
                     }
                     else {
-                        if (Tarea2.getDescripcion()=="") {
-                            System.out.print("Descripción de la tarea: ");
-                            nombre = leer.nextLine();
-                            System.out.println("¿La tarea tiene vencimiento?");
-                            System.out.print("(1- SI / 2- NO): ");
-                            opc2 = leer.nextInt();
-                            if (opc2==1) {
-                                System.out.print("Ingrese la fecha con formato 'dd/mm/aaaa': ");
-                                fechavenc = leer.next();
-                                Tarea2.setVencimiento(fechavenc);
-                            }
-                            Tarea2.setDescripcion(nombre);
-                            Mensajes.OperacionExito();
-                        }
-                        else {
-                            if (Tarea3.getDescripcion()=="") {
-                                System.out.print("Descripción de la tarea: ");
-                                nombre = leer.nextLine();
-                                System.out.println("¿La tarea tiene vencimiento?");
-                                System.out.print("(1- SI / 2- NO): ");
-                                opc2 = leer.nextInt();
-                                if (opc2==1) {
-                                    System.out.print("Ingrese la fecha con formato 'dd/mm/aaaa': ");
-                                    fechavenc = leer.next();
-                                    Tarea3.setVencimiento(fechavenc);
-                                }
-                                Tarea3.setDescripcion(nombre);
-                                Mensajes.OperacionExito();
-                            }
-                            else {
-                                Mensajes.ErrorCondicion(opc);
-                            }
-                        }
+                        Tarea.setNumero(contador);
+                        Tarea.setDescripcion(nombre);
                     }
+
+                    //Agrego el objeto Tarea al ArrayList Tareas
+                    Tareas.add(Tarea);
+
+                    contador++;
+                    Mensajes.OperacionExito();
                 break;
                 case 2:
-                    if ((Tarea1.getDescripcion()=="") && (Tarea2.getDescripcion()=="") && (Tarea3.getDescripcion()=="")) {
-                        Mensajes.ErrorCondicion(opc);
+                    if (Tareas.isEmpty()) {
+                        Mensajes.ErrorCondicion();
                     }
                     else {
-                        if (Tarea1.getDescripcion()!="") {
-                            Mensajes.ImpGuion(35);
-                            System.out.println("Número de Tarea: "+Tarea1.getNumero());
-                            System.out.println("Descripción: "+Tarea1.getDescripcion());
-                            if (Tarea1.getFinalizada()) {
-                                System.out.println("Estado: Finalizada");
-                            }
-                            else {
-                                System.out.println("Estado: Pendiente");
-                            }
-                            if (Tarea1.getVencimiento()!="") {
-                                System.out.println("Vencimiento: "+Tarea1.getVencimiento());
-                            }
-                        }
-                        if (Tarea2.getDescripcion()!="") {
-                            Mensajes.ImpGuion(35);
-                            System.out.println("Número de Tarea: "+Tarea2.getNumero());
-                            System.out.println("Descripción: "+Tarea2.getDescripcion());
-                            if (Tarea2.getFinalizada()) {
-                                System.out.println("Estado: Finalizada");
-                            }
-                            else {
-                                System.out.println("Estado: Pendiente");
-                            }
-                            if (Tarea2.getVencimiento()!="") {
-                                System.out.println("Vencimiento: "+Tarea2.getVencimiento());
-                            }
-                        }
-                        if (Tarea3.getDescripcion()!="") {
-                            Mensajes.ImpGuion(35);
-                            System.out.println("Número de Tarea: "+Tarea3.getNumero());
-                            System.out.println("Descripción: "+Tarea3.getDescripcion());
-                            if (Tarea3.getFinalizada()) {
-                                System.out.println("Estado: Finalizada");
-                            }
-                            else {
-                                System.out.println("Estado: Pendiente");
-                            }
-                            if (Tarea3.getVencimiento()!="") {
-                                System.out.println("Vencimiento: "+Tarea3.getVencimiento());
-                            }
-                        }
+                        ListarTareas(Tareas);
                     }
                 break;
                 case 3:
-                    if ((Tarea1.getDescripcion()=="") && (Tarea2.getDescripcion()=="") && (Tarea3.getDescripcion()=="")) {
-                        Mensajes.ErrorCondicion(opc);
+                    //Creo un objeto Tarea
+                    Task tf = new Task();
+                    if (Tareas.isEmpty()) {
+                        Mensajes.ErrorCondicion();
                     }
                     else {
-                        do {
-                            opc2=-1;
-                            if (Tarea1.getDescripcion()!="") {
-                                System.out.println("1 - "+Tarea1.getDescripcion());
+                        boolean encontrado = false;
+                        ListarTareas(Tareas);
+                        System.out.print("Seleccione la tarea a finalizar: ");
+                        int numTarea = leer.nextInt();
+                        for (int i=0; i<Tareas.size(); i++) {
+                            tf = Tareas.get(i);
+                            if (tf.getNumero()==numTarea) {
+                            encontrado = true;
+                            break;
                             }
-                            if (Tarea2.getDescripcion()!="") {
-                                System.out.println("2 - "+Tarea2.getDescripcion());
+                        }
+                        if (encontrado) {
+                            tf.setFinalizada(true);
+                            Mensajes.OperacionExito();
+                        }
+                        else {
+                            Mensajes.ErrorCarga();
+                        }
+                    }
+                break;
+                case 4:
+                    //Creo un objeto Tarea
+                    Task te = new Task();
+                    if (Tareas.isEmpty()) {
+                        Mensajes.ErrorCondicion();
+                    }
+                    if (Tareas.isEmpty()) {
+                        Mensajes.ErrorCondicion();
+                    }
+                    else {
+                        boolean encontrado = false;
+                        int numIndice = -1;
+                        ListarTareas(Tareas);
+                        System.out.print("Presione el número de tarea a eliminar: ");
+                        int numTBusq = leer.nextInt();
+                        for (int i=0; i<Tareas.size(); i++) {
+                            te = Tareas.get(i);
+                            if (te.getNumero()==numTBusq) {
+                            encontrado = true;
+                            numIndice = Tareas.indexOf(te);
+                            break;
                             }
-                            if (Tarea3.getDescripcion()!="") {
-                                System.out.println("3 - "+Tarea3.getDescripcion());
-                            }
-                            do {
-                                System.out.print("Seleccione la tarea a modificar: ");
-                                numTarea = leer.nextInt();
-                                if (numTarea<1 || numTarea>3) {
-                                    Mensajes.ErrorCarga();
-                                }
-                            } while (numTarea<1 || numTarea>3);
-                            System.out.println("Tarea seleccionada: "+numTarea);
-                            Mensajes.MenuTarea();
-                            opc2 = leer.nextInt();
-                            switch (opc2) {
-                                case 1:
-                                    terminada = true;
-                                    switch (numTarea) {
-                                        case 1:
-                                            Tarea1.setFinalizada(terminada);
-                                        break;
-                                        case 2:
-                                            Tarea2.setFinalizada(terminada);
-                                        break;
-                                        case 3:
-                                            Tarea3.setFinalizada(terminada);
-                                        break;
-                                    }
-                                break;
-                                case 2:
-                                    terminada = false;
-                                    switch (numTarea) {
-                                        case 1:
-                                            Tarea1.setDescripcion("");
-                                            Tarea1.setFinalizada(terminada);
-                                            Tarea1.setVencimiento("");
-                                        break;
-                                        case 2:
-                                            Tarea2.setDescripcion("");
-                                            Tarea2.setFinalizada(terminada);
-                                            Tarea2.setVencimiento("");
-                                        break;
-                                        case 3:
-                                            Tarea3.setDescripcion("");
-                                            Tarea3.setFinalizada(terminada);
-                                            Tarea3.setVencimiento("");
-                                        break;
-                                    }
-                                break;
-                                case 0:
-                                break;
-                                default:
-                                    Mensajes.ErrorOpcion();
-                                break;
-                            }
-                        } while (opc2!=0);
+                        }
+                        if (encontrado) {
+                            Tareas.remove(numIndice);
+                            Mensajes.OperacionExito();
+                        }
+                        else {
+                            Mensajes.ErrorCarga();
+                        }
                     }
                 break;
                 case 0:
@@ -200,5 +120,28 @@ public class TestTask {
             }
         } while (opc != 0);
         leer.close();
+    }
+
+    static void ListarTareas(ArrayList<Task> Tareas) {
+        System.out.println("                                LISTADO DE TAREAS");
+        Mensajes.ImpGuion(80);
+        //Recorro el ArrayList para mostrar sus elementos
+        for (int i=0;i<Tareas.size();i++) {
+            System.out.print("N°: "+Tareas.get(i).getNumero()+" - ");
+            System.out.print("Descripción: "+Tareas.get(i).getDescripcion()+" - ");
+            if (Tareas.get(i).getFinalizada()) {
+                System.out.print("Estado: Finalizada");
+            }
+            else {
+                System.out.print("Estado: Pendiente");
+            }
+            if (Tareas.get(i).getVencimiento()!=null) {
+                System.out.println(" - Vencimiento: "+Tareas.get(i).getVencimiento());
+            }
+            else {
+                System.out.println();
+            }
+        }
+        Mensajes.ImpGuion(80);
     }
 }
