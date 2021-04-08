@@ -4,23 +4,9 @@ public class Task {
     private String descripcion;
     private boolean finalizada;
     private String vencimiento;
-    
-    /*public Task(int numero, String descripcion, Date vencimiento) {
-        this.numero = numero;
-        this.descripcion = descripcion;
-        this.finalizada = false;
-        this.vencimiento = vencimiento;
-    }
    
-    public Task(int numero, String descripcion) {
-        this.numero = numero;
-        this.descripcion = descripcion;
-        this.finalizada = false;
-        this.vencimiento = null;
-    }*/
-
     public Task() {
-        this.numero = 0;
+        this.numero = -1;
         this.descripcion = null;
         this.finalizada = false;
         this.vencimiento = null;

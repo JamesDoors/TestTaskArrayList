@@ -46,9 +46,23 @@ public class Mensajes {
         System.out.println();
     }
 
-    static void OperacionExito() {
+    static void OperacionExito(int opcion) {
         System.out.println();
-        System.out.println("La operación fue realizada con éxito.");
+        ImpGuion(34);
+        System.out.print("La tarea fue ");
+        if (opcion == 1) {
+            System.out.print("creada ");
+        }
+        else {
+            if (opcion == 3) {
+                System.out.print("finalizada ");
+            }
+            else {
+                System.out.print("eliminada ");
+            }
+        }
+        System.out.println("con éxito.");
+        ImpGuion(34);
         System.out.println();
     }
 

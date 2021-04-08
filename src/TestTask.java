@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class TestTask {
     public static void main(String[] args) {
@@ -20,6 +21,7 @@ public class TestTask {
                 case 1:
                     //Creo un objeto Tarea
                     Task Tarea = new Task();
+                    System.out.println();
                     leer.nextLine();
                     System.out.print("Descripción de la tarea: ");
                     String nombre = leer.nextLine();
@@ -27,11 +29,20 @@ public class TestTask {
                     System.out.print("(1- SI / 2- NO): ");
                     opc2 = leer.nextInt();
                     if (opc2==1) {
-                        System.out.print("Ingrese la fecha con formato 'dd/mm/aaaa': ");
-                        String fechavenc = leer.next();
-                        Tarea.setNumero(contador);
-                        Tarea.setDescripcion(nombre);
-                        Tarea.setVencimiento(fechavenc);
+                        boolean fechaValida = false;
+                        do {
+                            System.out.print("Ingrese la fecha con formato 'dd/mm/aaaa': ");
+                            String fechavenc = leer.next();
+                            fechaValida = validaFecha(fechavenc);
+                            if (!fechaValida) {
+                                Mensajes.ErrorCarga();
+                            }
+                            else {
+                                Tarea.setNumero(contador);
+                                Tarea.setDescripcion(nombre);
+                                Tarea.setVencimiento(fechavenc);
+                            }
+                        } while (!fechaValida);
                     }
                     else {
                         Tarea.setNumero(contador);
@@ -42,7 +53,7 @@ public class TestTask {
                     Tareas.add(Tarea);
 
                     contador++;
-                    Mensajes.OperacionExito();
+                    Mensajes.OperacionExito(opc);
                 break;
                 case 2:
                     if (Tareas.isEmpty()) {
@@ -72,7 +83,7 @@ public class TestTask {
                         }
                         if (encontrado) {
                             tf.setFinalizada(true);
-                            Mensajes.OperacionExito();
+                            Mensajes.OperacionExito(opc);
                         }
                         else {
                             Mensajes.ErrorCarga();
@@ -104,7 +115,7 @@ public class TestTask {
                         }
                         if (encontrado) {
                             Tareas.remove(numIndice);
-                            Mensajes.OperacionExito();
+                            Mensajes.OperacionExito(opc);
                         }
                         else {
                             Mensajes.ErrorCarga();
@@ -143,5 +154,22 @@ public class TestTask {
             }
         }
         Mensajes.ImpGuion(80);
+    }
+
+    static boolean validaFecha(String fecha) {
+        boolean valido = true;
+        
+        int anio = Integer.parseInt(fecha.split("/")[2]); 
+        int mes = Integer.parseInt(fecha.split("/")[1]);
+        int dia = Integer.parseInt(fecha.split("/")[0]);
+
+        try {
+            LocalDate.of(anio, mes, dia);
+        }
+        catch (Exception e) {
+            valido = false;
+        }
+        
+        return valido;
     }
 }
