@@ -96,9 +96,6 @@ public class TestTask {
                     if (Tareas.isEmpty()) {
                         Mensajes.ErrorCondicion();
                     }
-                    if (Tareas.isEmpty()) {
-                        Mensajes.ErrorCondicion();
-                    }
                     else {
                         boolean encontrado = false;
                         int numIndice = -1;
